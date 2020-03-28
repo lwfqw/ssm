@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.luoweifei.mapper.UserMapper">
+    <select id="selectByTel" parameterType="String" resultType="User">
+        select * from user where tel=#{tel}
+    </select>
+    <select id="sameCity" resultType="User" parameterType="String">
+        select * from user where city=#{city}
+    </select>
+    <select id="all" resultType="User">
+       select * from user
+    </select>
+    <delete id="delete" parameterType="String" >
+        delete from user where tel=#{tel}
+    </delete>
+    <insert id="insert" parameterType="User">
+        insert into user(tel,name,city,password,comment) values (#{tel}.#{name},#{city},#{password},#{comment})
+    </insert>
+    <update id="modify" parameterType="User">
+        update user where tel=#{tel}
+        <set>
+            <if test="#{name}!=null">name=#{name} and</if>
+            <if test="#{city}!=null">city=#{city} and</if>
+            <if test="#{password}!=null">password=#{password} and</if>
+            <if test="#{comment}!=null">comment=#{comment} and</if>
+        </set>
+
+    </update>
+</mapper>
